@@ -5,9 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SimpleActivity extends AppCompatActivity {
 
@@ -17,7 +19,16 @@ public class SimpleActivity extends AppCompatActivity {
     private double leftSide, rightSide, result;
     private String operation = "noOperation";
     private final int numberLength = 14;
-    private AlertDialog alertDialog;
+    private boolean alreadyDecimal;
+
+    public void setNumber(int number){
+        if(tvInput.getText().toString().equals("0"))
+            tvInput.setText(String.valueOf(number));
+        else {
+            if (tvInput.getText().length() < numberLength)
+                tvInput.append(String.valueOf(number));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,85 +59,80 @@ public class SimpleActivity extends AppCompatActivity {
         tvInput = findViewById(R.id.tvInput);
         tvResult = findViewById(R.id.tvResult);
 
+
+
         btnZero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Integer.parseInt(tvInput.getText().toString()) == 0 || tvInput.getText()==null);
+                if (tvInput.getText().toString().equals("0") || tvInput.getText().toString().equals("") || tvInput.getText()==null)
                     tvInput.setText("0");
-                if(tvInput.getText().length() < numberLength)
-                    tvInput.append("0");
+                else {
+                    if (tvInput.getText().length() < numberLength)
+                        tvInput.append("0");
+                }
             }
         });
 
         btnOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvInput.getText().length() < numberLength)
-                    tvInput.append("1");
+                setNumber(1);
             }
         });
 
         btnTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvInput.getText().length() < numberLength)
-                    tvInput.append("2");
+                setNumber(2);
             }
         });
 
         btnThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvInput.getText().length() < numberLength)
-                    tvInput.append("3");
+                setNumber(3);
             }
         });
 
         btnFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvInput.getText().length() < numberLength)
-                    tvInput.append("4");
+                setNumber(4);
             }
         });
 
         btnFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvInput.getText().length() < numberLength)
-                    tvInput.append("5");
+               setNumber(5);
             }
         });
 
         btnSix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvInput.getText().length() < numberLength)
-                    tvInput.append("6");
+                setNumber(6);
             }
         });
 
         btnSeven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvInput.getText().length() < numberLength)
-                    tvInput.append("7");
+                setNumber(7);
             }
         });
 
         btnEight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvInput.getText().length() < numberLength)
-                    tvInput.append("8");
+                setNumber(8);
             }
         });
 
         btnNine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(tvInput.getText().length() < numberLength)
-                    tvInput.append("9");
+                setNumber(9);
             }
         });
 
@@ -137,7 +143,14 @@ public class SimpleActivity extends AppCompatActivity {
                     leftSide = Double.parseDouble(tvInput.getText().toString());
                     operation = "add";
                     tvInput.setText("");
+                    alreadyDecimal=false;
                 }
+              /*  if (!operation.equals("noOperation")){
+                    result = leftSide + Double.parseDouble(tvInput.getText().toString());
+                    tvResult.setText(String.valueOf(result));
+                    operation = "noOperation";
+                }
+                */
             }
         });
 
@@ -148,31 +161,40 @@ public class SimpleActivity extends AppCompatActivity {
                     leftSide = Double.parseDouble(tvInput.getText().toString());
                     operation = "subtract";
                     tvInput.setText("");
+                    alreadyDecimal=false;
                 }
+            /*    if (!operation.equals("noOperation")){
+                    result = leftSide - Double.parseDouble(tvInput.getText().toString());
+                    tvResult.setText(String.valueOf(result));
+                    operation = "noOperation";
+                }
+                */
             }
         });
 
         btnEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvInput.getText()==null) {
-                    alertDialog = new AlertDialog.Builder(SimpleActivity.this).create();
-                    alertDialog.setTitle("Alert Dialog");
-                    alertDialog.setMessage("Użyto nieprawidłowego formatu");
-                    alertDialog.show();
+                if (tvInput.getText() == null || tvInput.getText().length() < 1) {
+                    Log.d("blad", "uzyto niepoprawnego formatu");
+                    Toast.makeText(getBaseContext(), "Użyto niepoprawnego formatu" , Toast.LENGTH_SHORT).show();
+
+                } else {
+                    switch (operation) {
+                        case "add":
+                            result = leftSide + Double.parseDouble(tvInput.getText().toString());
+                            tvResult.setText(String.valueOf(result));
+                            operation = "noOperation";
+                            break;
+                        case "subtract":
+                            result = leftSide - Double.parseDouble(tvInput.getText().toString());
+                            tvResult.setText(String.valueOf(result));
+                            operation = "noOperation";
+                            break;
+                    }
                 }
-                switch (operation){
-                    case "add":
-                        result = leftSide + Double.parseDouble(tvInput.getText().toString());
-                        tvResult.setText(String.valueOf(result));
-                        operation="noOperation";
-                        break;
-                    case "subtract":
-                        result = leftSide - Double.parseDouble(tvInput.getText().toString());
-                        tvResult.setText(String.valueOf(result));
-                        operation="noOperation";
-                        break;
-                }
+                alreadyDecimal=false;
+                tvInput.setText("");
             }
         });
 
@@ -193,7 +215,33 @@ public class SimpleActivity extends AppCompatActivity {
             }
         });
 
+        btnDecimal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(alreadyDecimal==false) {
+                    tvInput.append(".");
+                    alreadyDecimal = true;
+                }
+            }
+        });
 
+        btnPlusMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!tvInput.getText().toString().equals("")) {
+                    double temp = Double.parseDouble(tvInput.getText().toString());
+                    temp = temp * (-1);
+                    tvInput.setText(String.valueOf(temp));
+                }
+            }
+        });
 
     }
+/*
+    @Override
+    public void onSavedInstanceState(Bundle savedInstanceState){
+        savedInstanceState.putString("savedInput", tvInput.getText().toString());
+        super.OnSaveInstanceState(savedInstanceState);
+    }
+    */
 }
