@@ -19,7 +19,7 @@ public class SimpleActivity extends AppCompatActivity {
     private double leftSide, rightSide, result;
     private String operation = "noOperation";
     private final int numberLength = 14;
-    private boolean alreadyDecimal;
+    private boolean alreadyDecimal, alreadyNegative;
 
     public void setNumber(int number){
         if(tvInput.getText().toString().equals("0"))
@@ -60,7 +60,7 @@ public class SimpleActivity extends AppCompatActivity {
         tvResult = findViewById(R.id.tvResult);
 
 
-
+        //0         0           0           0
         btnZero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,14 +136,16 @@ public class SimpleActivity extends AppCompatActivity {
             }
         });
 
+        //+         +           +           +           +
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvInput.getText() != null) {
+                if (!tvInput.getText().equals("")) {
                     leftSide = Double.parseDouble(tvInput.getText().toString());
                     operation = "add";
                     tvInput.setText("");
                     alreadyDecimal=false;
+                    alreadyNegative=false;
                 }
               /*  if (!operation.equals("noOperation")){
                     result = leftSide + Double.parseDouble(tvInput.getText().toString());
@@ -154,14 +156,20 @@ public class SimpleActivity extends AppCompatActivity {
             }
         });
 
+        // -            -           -           -           -
         btnSubtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvInput.getText() != null) {
+                if (tvInput.getText().equals("") && alreadyNegative==false) {
+                    tvInput.setText("-");
+                    alreadyNegative=true;
+                }
+                else if (!tvInput.getText().equals("")) {
                     leftSide = Double.parseDouble(tvInput.getText().toString());
                     operation = "subtract";
                     tvInput.setText("");
                     alreadyDecimal=false;
+                    alreadyNegative=false;
                 }
             /*    if (!operation.equals("noOperation")){
                     result = leftSide - Double.parseDouble(tvInput.getText().toString());
@@ -172,13 +180,12 @@ public class SimpleActivity extends AppCompatActivity {
             }
         });
 
+        //=         =           =           =
         btnEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (tvInput.getText() == null || tvInput.getText().length() < 1) {
-                    Log.d("blad", "uzyto niepoprawnego formatu");
                     Toast.makeText(getBaseContext(), "Użyto niepoprawnego formatu" , Toast.LENGTH_SHORT).show();
-
                 } else {
                     switch (operation) {
                         case "add":
@@ -191,13 +198,19 @@ public class SimpleActivity extends AppCompatActivity {
                             tvResult.setText(String.valueOf(result));
                             operation = "noOperation";
                             break;
+                        case "noOperation":
+                            Toast.makeText(getBaseContext(), "Użyto niepoprawnego formatu" , Toast.LENGTH_SHORT).show();
+                            break;
                     }
                 }
+
                 alreadyDecimal=false;
+                alreadyNegative=false;
                 tvInput.setText("");
             }
         });
 
+        //C     C       C       C       C
         btnC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,6 +219,7 @@ public class SimpleActivity extends AppCompatActivity {
             }
         });
 
+        //BACKSPACE         BACKSPACE
         btnBksp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -215,6 +229,7 @@ public class SimpleActivity extends AppCompatActivity {
             }
         });
 
+        // .            .           .           .
         btnDecimal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -225,6 +240,7 @@ public class SimpleActivity extends AppCompatActivity {
             }
         });
 
+        //+-            +-          +-          +-
         btnPlusMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -232,6 +248,7 @@ public class SimpleActivity extends AppCompatActivity {
                     double temp = Double.parseDouble(tvInput.getText().toString());
                     temp = temp * (-1);
                     tvInput.setText(String.valueOf(temp));
+                    alreadyDecimal=true;
                 }
             }
         });
