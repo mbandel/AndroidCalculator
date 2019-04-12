@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+    android:layout_height="fill_parent">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -20,7 +18,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:paddingRight="10sp"
-            android:paddingTop="5sp"
+            android:paddingTop="3sp"
             android:textSize="15pt"
             android:textStyle="bold" />
 
@@ -31,7 +29,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:paddingRight="10sp"
-            android:paddingTop="5sp"
+            android:paddingTop="3sp"
             android:textSize="15pt"
             android:textStyle="bold" />
 
@@ -40,8 +38,8 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
         android:orientation="vertical"
+        android:layout_weight="4"
         >
 
         <LinearLayout
@@ -51,57 +49,12 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/btnPlusMinus"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textSize="40sp"
-                android:text="+-" />
-
-            <Button
-                android:id="@+id/btnC"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textSize="40sp"
-                android:text="C" />
-
-            <Button
-                android:id="@+id/btnAC"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textSize="40sp"
-                android:text="AC" />
-
-
-            <Button
-                android:id="@+id/btnBksp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textSize="40sp"
-                android:text="←" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal" >
-
-
-            <Button
                 android:id="@+id/btnSeven"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="40sp"
+                android:textSize="25sp"
                 android:text="7" />
 
 
@@ -111,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="40sp"
+                android:textSize="25sp"
                 android:text="8" />
 
 
@@ -121,18 +74,26 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="40sp"
+                android:textSize="25sp"
                 android:text="9" />
 
-
             <Button
-                android:id="@+id/btnDivide"
+                android:id="@+id/btnC"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="40sp"
-                android:text="/" />
+                android:textSize="25sp"
+                android:text="C" />
+
+            <Button
+                android:id="@+id/btnAC"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:text="AC" />
 
         </LinearLayout>
         <LinearLayout
@@ -147,7 +108,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="40sp"
+                android:textSize="25sp"
                 android:textStyle="bold"
                 android:text="4" />
 
@@ -158,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="40sp"
+                android:textSize="25sp"
                 android:text="5" />
 
 
@@ -168,56 +129,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="40sp"
+                android:textSize="25sp"
                 android:text="6" />
 
 
             <Button
-                android:id="@+id/btnMultiply"
+                android:id="@+id/btnDivide"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="40sp"
-                android:text="x" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal" >
-
-
-            <Button
-                android:id="@+id/btnOne"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textSize="40sp"
-                android:text="1" />
-
-
-            <Button
-                android:id="@+id/btnTwo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textSize="40sp"
-                android:text="2" />
-
-
-            <Button
-                android:id="@+id/btnThree"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textSize="40sp"
-                android:text="3" />
-
+                android:textSize="25sp"
+                android:text="/" />
 
             <Button
                 android:id="@+id/btnSubtract"
@@ -225,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="40sp"
+                android:textSize="25sp"
                 android:text="-" />
 
         </LinearLayout>
@@ -235,36 +158,44 @@
             android:layout_weight="1"
             android:orientation="horizontal" >
 
-
             <Button
-                android:id="@+id/btnDecimal"
+                android:id="@+id/btnOne"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="40sp"
-                android:text="." />
+                android:textSize="25sp"
+                android:text="1" />
 
 
             <Button
-                android:id="@+id/btnZero"
+                android:id="@+id/btnTwo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="40sp"
-                android:text="0" />
+                android:textSize="25sp"
+                android:text="2" />
 
 
             <Button
-                android:id="@+id/btnEquals"
+                android:id="@+id/btnThree"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="40sp"
-                android:text="=" />
+                android:textSize="25sp"
+                android:text="3" />
 
+
+            <Button
+                android:id="@+id/btnMultiply"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:text="x" />
 
             <Button
                 android:id="@+id/btnAdd"
@@ -272,9 +203,65 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:textSize="40sp"
+                android:textSize="25sp"
                 android:text="+" />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnZero"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:text="0" />
+
+
+            <Button
+                android:id="@+id/btnDecimal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:text="." />
+
+            <Button
+                android:id="@+id/btnEquals"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:text="=" />
+
+            <Button
+                android:id="@+id/btnBksp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:text="←" />
+
+            <Button
+                android:id="@+id/btnPlusMinus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:text="+-" />
+
+
+        </LinearLayout>
     </LinearLayout>
+
+
 </LinearLayout>
