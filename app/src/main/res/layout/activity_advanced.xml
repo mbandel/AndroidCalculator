@@ -119,13 +119,13 @@
             android:text="%" />
 
         <Button
-            android:id="@+id/btnReverse"
+            android:id="@+id/btnPi"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="30sp"
-            android:text="1/x" />
+            android:text="@string/pi" />
     </LinearLayout>
 
     <LinearLayout
