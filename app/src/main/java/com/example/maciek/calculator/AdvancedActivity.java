@@ -317,12 +317,21 @@ public class AdvancedActivity extends AppCompatActivity {
                             expression = expression.substring(0, expression.length() - 7);
                             Log.d("expression", expression);
                         }
-                        //do poprawy
-                        else if (tvInput.getText().toString().charAt(tvInput.getText().length() - 1) == '^'){
-                            tvInput.setText(tvInput.getText().toString().substring(0, tvInput.getText().length() - 1));
-                            expression = expression.substring(0, expression.length() - "Math.pow(,".length());
-                            Log.d("expression", expression);
-                        }
+                        //potega
+                        else if (expression.charAt(expression.length()-1) == ',') {
+                            for (int i = expression.length() - 1; i > 0; i--) {
+                                if (expression.charAt(i) == '(') {
+                                    len = i;
+                                    break;
+                                }
+                                len=i;
+                            }
+                                expression = expression.substring(0, len  -"Math.pow".length())  + expression.substring(len+1 , expression.length()-1);
+                                tvInput.setText(tvInput.getText().toString().substring(0, tvInput.getText().length()-2));
+
+                                Log.d("expression", expression);
+                            }
+
 
                         //pozostale przypadki - kasowanie 1 znaku
                         else {
@@ -482,11 +491,11 @@ public class AdvancedActivity extends AppCompatActivity {
                             len = i;
                         }
                         expression = expression.substring(0, len+1) + "Math.pow(" + expression.substring(len + 1, expression.length()) + ",2)";
-                        tvInput.append("^2");
+                        tvInput.append("^(2)");
                         Log.d("expression", expression);
 
                     } else {
-                        tvInput.append("^2");
+                        tvInput.append("^(2)");
                         expression = "Math.pow(" + expression + ",2)";
                         Log.d("expression", expression);
                     }
