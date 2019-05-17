@@ -299,6 +299,7 @@ public class SimpleActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putString("savedInput", tvInput.getText().toString());
+        savedInstanceState.putString("savedResult", tvResult.getText().toString());
 
     }
 
@@ -307,6 +308,7 @@ public class SimpleActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         // Restore UI state from the savedInstanceState.
         // This bundle has also been passed to onCreate.
+        tvResult.setText(savedInstanceState.getString("savedResult"));
         tvInput.setText(savedInstanceState.getString("savedInput"));
     }
 

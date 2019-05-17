@@ -20,7 +20,7 @@ public class AdvancedActivity extends AppCompatActivity {
     private TextView tvInput, tvResult;
     private String expression;
     private final int numberLength = 28;
-    private boolean alreadyDecimal, usedOperator, clickedC;
+    private boolean alreadyDecimal, usedOperator, clickedC, usedMinus;
     private ScriptEngine engine;
     private int len;
 
@@ -36,11 +36,13 @@ public class AdvancedActivity extends AppCompatActivity {
                 expression=expression +(String.valueOf(number));
         }
         usedOperator=false;
+        usedMinus=false;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        try {
+
+            usedMinus=false;
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_advanced);
             engine = new ScriptEngineManager().getEngineByExtension("js");
@@ -96,6 +98,7 @@ public class AdvancedActivity extends AppCompatActivity {
                             tvInput.append("0");
                     }
                     usedOperator = false;
+                    usedMinus=false;
                 }
             });
 
@@ -171,6 +174,7 @@ public class AdvancedActivity extends AppCompatActivity {
                         expression = expression + "+";
                         alreadyDecimal = false;
                         usedOperator = true;
+                        usedMinus=true;
                     }
                 }
             });
@@ -179,10 +183,11 @@ public class AdvancedActivity extends AppCompatActivity {
             btnSubtract.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (!tvInput.getText().toString().equals("") && usedOperator == false) {
+                    if (!tvInput.getText().toString().equals("") && usedMinus == false) {
                         tvInput.append("-");
                         expression = expression + "-";
                         alreadyDecimal = false;
+                        usedMinus = true;
                         usedOperator = true;
                     }
                 }
@@ -197,6 +202,7 @@ public class AdvancedActivity extends AppCompatActivity {
                         expression = expression + "*";
                         alreadyDecimal = false;
                         usedOperator = true;
+                        usedMinus=true;
                     }
                 }
             });
@@ -210,6 +216,7 @@ public class AdvancedActivity extends AppCompatActivity {
                         expression = expression + "/";
                         alreadyDecimal = false;
                         usedOperator = true;
+                        usedMinus=true;
                     }
                 }
             });
@@ -226,8 +233,10 @@ public class AdvancedActivity extends AppCompatActivity {
                             Object result = engine.eval(expression);
                             if (result.toString().charAt(result.toString().length() - 1) == '0' && result.toString().charAt(result.toString().length() - 2) == '.')
                                 result = result.toString().substring(0, result.toString().length() - 2);
-                            if (result.toString().equals("Infinity") && expression.contains("/"))
+                            if (result.toString().equals("Infinity") && expression.contains("/")) {
                                 Toast.makeText(getBaseContext(), "Nie można dzielić przez 0", Toast.LENGTH_SHORT).show();
+                                result="";
+                            }
                             if (result.toString().equals("NaN") && expression.contains("Math.log"))
                                 Toast.makeText(getBaseContext(), "Logarytm z liczby ujemnej nie istnieje", Toast.LENGTH_SHORT).show();
                             else if (result.toString().equals("NaN") && tvInput.getText().toString().contains("√"))
@@ -255,12 +264,14 @@ public class AdvancedActivity extends AppCompatActivity {
                         expression = "";
                         alreadyDecimal = false;
                         clickedC = true;
+                        usedMinus=false;
                     } else {
                         tvInput.setText("");
                         expression = "";
                         tvResult.setText("");
                         alreadyDecimal = false;
                         clickedC = false;
+                        usedMinus=false;
                     }
                 }
             });
@@ -272,6 +283,7 @@ public class AdvancedActivity extends AppCompatActivity {
                     tvResult.setText("");
                     expression = "";
                     alreadyDecimal = false;
+                    usedMinus=false;
                 }
             });
 
@@ -311,6 +323,22 @@ public class AdvancedActivity extends AppCompatActivity {
                             tvInput.setText(tvInput.getText().toString().substring(0, tvInput.getText().length() - 1));
                             expression = expression.substring(0, expression.length() - "Math.sqrt".length());
                             Log.d("expression", expression);
+                        }
+                        else if (tvInput.getText().toString().charAt(tvInput.getText().length() - 1) == '%'){
+                            tvInput.setText(tvInput.getText().toString().substring(0, tvInput.getText().length() - 1));
+                            expression = expression.substring(0, expression.length() - "*0.01".length());
+                            Log.d("expression", expression);
+                        }
+                        else if (tvInput.getText().toString().charAt(tvInput.getText().length() - 1) == 'g'){
+                            if (tvInput.getText().toString().charAt(tvInput.getText().length() - 1) == 'o') {
+                                tvInput.setText(tvInput.getText().toString().substring(0, tvInput.getText().length() - 3));
+                                expression = expression.substring(0, expression.length() - "Math.log10".length());
+                                Log.d("expression", expression);
+                            }
+                            else{
+                                tvInput.setText(tvInput.getText().toString().substring(0, tvInput.getText().length() - 2));
+                                expression = expression.substring(0, expression.length() - "Math.tan".length());
+                            }
                         }
                         else if (tvInput.getText().toString().charAt(tvInput.getText().length() - 1) == 'π'){
                             tvInput.setText(tvInput.getText().toString().substring(0, tvInput.getText().length() - 1));
@@ -380,6 +408,8 @@ public class AdvancedActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     tvInput.append("(");
                     expression = expression + "(";
+                    usedMinus=false;
+
                 }
             });
             //)
@@ -388,6 +418,7 @@ public class AdvancedActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     tvInput.append(")");
                     expression = expression + ")";
+                    usedMinus=false;
                 }
             });
 
@@ -397,6 +428,7 @@ public class AdvancedActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     expression = expression + "Math.sin(";
                     tvInput.append("sin(");
+                    usedMinus=false;
                 }
             });
 
@@ -406,6 +438,7 @@ public class AdvancedActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     expression = expression + "Math.cos(";
                     tvInput.append("cos(");
+                    usedMinus=false;
                 }
             });
 
@@ -415,6 +448,7 @@ public class AdvancedActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     expression = expression + "Math.log(";
                     tvInput.append("ln(");
+                    usedMinus=false;
                 }
             });
 
@@ -424,6 +458,7 @@ public class AdvancedActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     expression = expression + "Math.log10(";
                     tvInput.append("log(");
+                    usedMinus=false;
                 }
             });
 
@@ -434,6 +469,7 @@ public class AdvancedActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     expression = expression + "Math.sqrt(";
                     tvInput.append("√(");
+                    usedMinus=false;
                 }
             });
 
@@ -443,6 +479,8 @@ public class AdvancedActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     tvInput.append("π");
                     expression = expression  + "Math.PI";
+                    usedMinus=false;
+                    usedOperator=false;
                 }
             });
 
@@ -452,6 +490,18 @@ public class AdvancedActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     tvInput.append("%");
                     expression = expression + "*0.01";
+                    usedOperator=false;
+                    usedMinus=false;
+                }
+            });
+
+            //tan
+            btnTangens.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    expression = expression + "Math.tan(";
+                    tvInput.append("tg(");
+                    usedMinus=false;
                 }
             });
 
@@ -502,9 +552,7 @@ public class AdvancedActivity extends AppCompatActivity {
                 }
             });
 
-        }catch (Exception e){
-            Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     @Override

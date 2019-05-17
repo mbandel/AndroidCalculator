@@ -159,7 +159,7 @@
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="30sp"
-            android:text="tan" />
+            android:text="tg" />
 
         <Button
             android:id="@+id/btnLn"
